@@ -7,6 +7,7 @@ import MarketOverview from "@/components/dashboard/MarketOverview";
 import WelcomeCard from "@/components/dashboard/WelcomeCard";
 import ContentFeed from "@/components/dashboard/ContentFeed";
 import EnhancedCreatePostModal from "@/components/dashboard/EnhancedCreatePostModal";
+import FloatingCreateButton from "@/components/FloatingCreateButton";
 import { Button } from "@/components/ui/button";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
@@ -1429,6 +1430,8 @@ const Dashboard = () => {
         </div>
       )}
       
+      {/* Floating Create Button */}
+      <FloatingCreateButton />
 
     </div>
   );
