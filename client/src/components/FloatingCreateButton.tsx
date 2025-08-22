@@ -3,6 +3,8 @@ import { Plus, MessageSquare, TrendingUp } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import EnhancedCreatePostModal from "@/components/dashboard/EnhancedCreatePostModal";
+import AuthPrompt from "@/components/auth/AuthPrompt";
+import { useAuth } from "@/hooks/useAuth";
 
 interface FloatingCreateButtonProps {
   className?: string;
@@ -11,10 +13,24 @@ interface FloatingCreateButtonProps {
 const FloatingCreateButton = ({ className = "" }: FloatingCreateButtonProps) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [showOptions, setShowOptions] = useState(false);
+  const [showAuthPrompt, setShowAuthPrompt] = useState(false);
+  const { isAuthenticated } = useAuth();
 
   const handleOptionSelect = (type: 'post' | 'tip') => {
     setShowOptions(false);
+    if (!isAuthenticated) {
+      setShowAuthPrompt(true);
+      return;
+    }
     setIsModalOpen(true);
+  };
+
+  const handleMainButtonClick = () => {
+    if (!isAuthenticated) {
+      setShowAuthPrompt(true);
+      return;
+    }
+    setShowOptions(!showOptions);
   };
 
   return (
@@ -55,7 +71,7 @@ const FloatingCreateButton = ({ className = "" }: FloatingCreateButtonProps) => 
 
         {/* Main Floating Button */}
         <Button
-          onClick={() => setShowOptions(!showOptions)}
+          onClick={handleMainButtonClick}
           className="h-14 w-14 rounded-full bg-blue-600 hover:bg-blue-700 shadow-lg hover:shadow-xl transition-all duration-200 group"
           size="sm"
         >
@@ -82,6 +98,17 @@ const FloatingCreateButton = ({ className = "" }: FloatingCreateButtonProps) => 
         onPostCreated={() => {
           console.log('Post created from floating button');
         }}
+      />
+
+      {/* Auth Prompt */}
+      <AuthPrompt
+        isOpen={showAuthPrompt}
+        onClose={() => setShowAuthPrompt(false)}
+        onSuccess={() => {
+          setShowAuthPrompt(false);
+          setIsModalOpen(true);
+        }}
+        message="Sign in to create posts and share your insights with the community."
       />
     </>
   );
