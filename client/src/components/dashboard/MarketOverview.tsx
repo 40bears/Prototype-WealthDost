@@ -66,7 +66,7 @@ const MarketOverview = ({ data, isLoading = false }: MarketOverviewProps) => {
                   updatedAt: new Date(),
                 },
               ]).map((item, index) => (
-                <div key={item.id || index} className="flex-1 p-3 text-center">
+                <div key={index} className="flex-1 p-3 text-center">
                   <div className="text-xs text-gray-500">{item.name}</div>
                   <div className="font-semibold">{item.price}</div>
                   <div className={`text-xs ${item.changePercent.startsWith('+') ? 'text-green-600' : 'text-red-600'}`}>
