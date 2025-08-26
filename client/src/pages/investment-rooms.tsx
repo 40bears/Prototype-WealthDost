@@ -230,8 +230,8 @@ const InvestmentRooms = () => {
       {/* Create Tribe Modal */}
       {showCreateTribe && (
         <div className="fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center p-4">
-          <div className="bg-white w-full max-w-md rounded-lg max-h-[90vh] overflow-hidden">
-            <div className="p-4 border-b border-gray-200">
+          <div className="bg-white w-full max-w-md rounded-lg max-h-[90vh] overflow-hidden flex flex-col">
+            <div className="p-4 border-b border-gray-200 flex-shrink-0">
               <div className="flex items-center justify-between">
                 <h3 className="text-lg font-semibold">Create New Tribe</h3>
                 <Button 
@@ -244,7 +244,7 @@ const InvestmentRooms = () => {
               </div>
             </div>
             
-            <div className="p-4 overflow-y-auto">
+            <div className="p-4 overflow-y-auto flex-1">
               <div className="space-y-4">
                 {/* Tribe Name */}
                 <div>
@@ -347,8 +347,11 @@ const InvestmentRooms = () => {
                   </div>
                 </div>
               </div>
-              
-              <div className="flex space-x-3 mt-6">
+            </div>
+            
+            {/* Footer - Fixed */}
+            <div className="p-4 border-t border-gray-200 flex-shrink-0">
+              <div className="flex space-x-3">
                 <Button 
                   variant="outline" 
                   className="flex-1"
@@ -357,7 +360,7 @@ const InvestmentRooms = () => {
                   Cancel
                 </Button>
                 <Button 
-                  className="flex-1 bg-purple-600 text-white"
+                  className="flex-1 bg-purple-600 hover:bg-purple-700 text-white"
                   onClick={() => setShowCreateTribe(false)}
                 >
                   Create Tribe
