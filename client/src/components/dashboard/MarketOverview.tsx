@@ -9,7 +9,7 @@ interface MarketOverviewProps {
 
 const MarketOverview = ({ data, isLoading = false }: MarketOverviewProps) => {
   return (
-    <div className="mx-4 my-4">
+    <div className="mx-0 my-4">
       <Card>
         <CardHeader className="pb-2">
           <CardTitle className="text-base font-semibold">Today's Markets</CardTitle>

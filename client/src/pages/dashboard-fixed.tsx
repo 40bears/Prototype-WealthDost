@@ -500,7 +500,9 @@ const Dashboard = () => {
           <div className="px-4 py-6">
             <h2 className="text-xl font-semibold mb-4">Analytics</h2>
             <p className="text-gray-600 mb-4">User-level financial behavior insights.</p>
-            <MarketOverview data={typedMarketData} isLoading={isLoadingMarketData} />
+            <div className="px-0">
+              <MarketOverview data={typedMarketData} isLoading={isLoadingMarketData} />
+            </div>
             
             <div className="mt-6 space-y-4">
               <div className="bg-white border border-gray-200 rounded-lg p-4">
