@@ -107,8 +107,8 @@ export default function CreateAccount() {
                 <div className="space-y-2">
                   <Label htmlFor="mobile" className="text-white font-medium">Mobile Number</Label>
                   <div className="flex">
-                    <div className="flex items-center bg-white/10 backdrop-blur-sm px-4 rounded-l-xl border border-white/20 border-r-0">
-                      <span className="text-sm text-white/90 font-medium">+91</span>
+                    <div className="flex items-center bg-white/10 backdrop-blur-sm px-4 rounded-l-xl border border-white/20 border-r-0 h-12">
+                      <span className="text-lg text-white/90 font-semibold">+91</span>
                     </div>
                     <Input
                       id="mobile"
@@ -116,17 +116,24 @@ export default function CreateAccount() {
                       placeholder="Enter 10-digit mobile number"
                       value={mobileNumber}
                       onChange={(e) => setMobileNumber(e.target.value.replace(/\D/g, '').slice(0, 10))}
-                      className="rounded-l-none bg-white/10 backdrop-blur-sm border-white/20 text-white placeholder:text-white/60 rounded-r-xl focus:border-purple-400 focus:ring-2 focus:ring-purple-400/50 focus:ring-offset-0 transition-all duration-300"
+                      className="rounded-l-none bg-white/10 backdrop-blur-sm border-white/20 text-white placeholder:text-white/60 rounded-r-xl focus:border-purple-400 focus:ring-2 focus:ring-purple-400/50 focus:ring-offset-0 focus:shadow-lg focus:shadow-purple-500/20 transition-all duration-300 h-12 text-lg"
                       required
                     />
                   </div>
                 </div>
                 <Button 
                   type="submit" 
-                  className="w-full bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-500 hover:to-blue-500 text-white font-semibold py-3 rounded-xl transition-all duration-300 transform hover:scale-105 hover:shadow-lg hover:shadow-purple-500/25 focus:scale-105 focus:shadow-lg focus:shadow-purple-500/25"
+                  size="lg"
+                  className="w-full h-12 bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-500 hover:to-blue-500 text-white font-bold text-lg rounded-xl border border-white/20 shadow-lg transition-all duration-300 transform hover:scale-[1.02] hover:shadow-xl hover:shadow-purple-500/30 focus:scale-[1.02] focus:shadow-xl focus:shadow-purple-500/30 active:scale-[0.98] disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100"
                   disabled={isLoading || mobileNumber.length !== 10}
                 >
-                  {isLoading ? "Sending OTP..." : "Send OTP"}
+                  <span className="relative z-10 flex items-center justify-center gap-2">
+                    {isLoading && (
+                      <div className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin"></div>
+                    )}
+                    {isLoading ? "Sending OTP..." : "Send OTP"}
+                  </span>
+                  <div className="absolute inset-0 bg-gradient-to-r from-white/20 to-transparent opacity-0 hover:opacity-100 transition-opacity duration-300 rounded-xl"></div>
                 </Button>
               </form>
             ) : (
@@ -139,7 +146,7 @@ export default function CreateAccount() {
                     placeholder="Enter 6-digit OTP"
                     value={otp}
                     onChange={(e) => setOtp(e.target.value.replace(/\D/g, '').slice(0, 6))}
-                    className="text-center text-lg tracking-widest bg-white/10 backdrop-blur-sm border-white/20 text-white placeholder:text-white/60 rounded-xl focus:border-purple-400 focus:ring-2 focus:ring-purple-400/50 focus:ring-offset-0 transition-all duration-300"
+                    className="text-center text-xl tracking-widest bg-white/10 backdrop-blur-sm border-white/20 text-white placeholder:text-white/60 rounded-xl focus:border-green-400 focus:ring-2 focus:ring-green-400/50 focus:ring-offset-0 focus:shadow-lg focus:shadow-green-500/20 transition-all duration-300 h-14 font-bold"
                     required
                   />
                 </div>
@@ -164,10 +171,22 @@ export default function CreateAccount() {
                 </div>
                 <Button 
                   type="submit" 
-                  className="w-full bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-500 hover:to-blue-500 text-white font-semibold py-3 rounded-xl transition-all duration-300 transform hover:scale-105 hover:shadow-lg hover:shadow-purple-500/25 focus:scale-105 focus:shadow-lg focus:shadow-purple-500/25"
+                  size="lg"
+                  className="w-full h-12 bg-gradient-to-r from-green-600 to-emerald-600 hover:from-green-500 hover:to-emerald-500 text-white font-bold text-lg rounded-xl border border-white/20 shadow-lg transition-all duration-300 transform hover:scale-[1.02] hover:shadow-xl hover:shadow-green-500/30 focus:scale-[1.02] focus:shadow-xl focus:shadow-green-500/30 active:scale-[0.98] disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100"
                   disabled={isLoading || otp.length !== 6}
                 >
-                  {isLoading ? "Verifying..." : "Verify & Continue"}
+                  <span className="relative z-10 flex items-center justify-center gap-2">
+                    {isLoading && (
+                      <div className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin"></div>
+                    )}
+                    {isLoading ? "Verifying..." : "Verify & Continue"}
+                    {!isLoading && (
+                      <svg className="w-5 h-5 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                      </svg>
+                    )}
+                  </span>
+                  <div className="absolute inset-0 bg-gradient-to-r from-white/20 to-transparent opacity-0 hover:opacity-100 transition-opacity duration-300 rounded-xl"></div>
                 </Button>
               </form>
             )}
