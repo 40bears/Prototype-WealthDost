@@ -59,43 +59,56 @@ export default function CreateAccount() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-purple-600 via-blue-600 to-indigo-700 flex flex-col justify-center p-4">
-      <div className="w-full max-w-md mx-auto flex-1 flex flex-col justify-center">
+    <div className="min-h-screen bg-gradient-to-br from-purple-900 via-blue-900 to-indigo-900 flex flex-col justify-center p-4 relative overflow-hidden">
+      {/* Animated background elements */}
+      <div className="absolute inset-0 overflow-hidden">
+        <div className="absolute -top-40 -right-40 w-80 h-80 bg-purple-500/30 rounded-full blur-3xl animate-pulse"></div>
+        <div className="absolute -bottom-40 -left-40 w-80 h-80 bg-blue-500/30 rounded-full blur-3xl animate-pulse animation-delay-2000"></div>
+        <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-96 h-96 bg-gradient-to-r from-purple-400/20 to-blue-400/20 rounded-full blur-3xl"></div>
+      </div>
+      
+      <div className="w-full max-w-md mx-auto flex-1 flex flex-col justify-center relative z-10">
         {/* Header */}
         <div className="text-center mb-8">
-          <h1 className="text-3xl font-bold text-white mb-2">Create Account</h1>
-          <p className="text-white/80">Enter your mobile number to get started</p>
-          <div className="mt-4">
-            <p className="text-white/70 text-sm">
+          <h1 className="text-4xl font-bold text-white mb-3 drop-shadow-lg">Create Account</h1>
+          <p className="text-white/90 text-lg">Enter your mobile number to get started</p>
+          <div className="mt-6">
+            <p className="text-white/80 text-sm">
               Already have an account?{" "}
-              <Link href="/login" className="text-white font-semibold underline hover:text-blue-200 transition-colors">
-                Sign In
+              <Link href="/login" className="text-white font-semibold relative inline-block group">
+                <span className="relative z-10">Sign In</span>
+                <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-gradient-to-r from-purple-400 to-blue-400 transition-all duration-300 group-hover:w-full"></span>
               </Link>
             </p>
           </div>
         </div>
 
         {/* Registration Form */}
-        <Card className="bg-white/95 backdrop-blur-sm shadow-xl">
-          <CardHeader>
-            <CardTitle className="text-2xl font-bold text-center">
-              {isOtpSent ? "Verify OTP" : "Mobile Number"}
-            </CardTitle>
-            <CardDescription className="text-center">
-              {isOtpSent 
-                ? `Enter the 6-digit OTP sent to +91 ${mobileNumber}`
-                : "We'll send you a verification code"
-              }
-            </CardDescription>
-          </CardHeader>
-          <CardContent>
+        <div className="bg-white/10 backdrop-blur-md border border-white/20 rounded-2xl shadow-2xl p-8 relative overflow-hidden">
+          {/* Glass shine effect */}
+          <div className="absolute inset-0 bg-gradient-to-br from-white/20 to-transparent opacity-50 rounded-2xl"></div>
+          <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-white/40 to-transparent"></div>
+          
+          <div className="relative z-10">
+            <div className="text-center mb-6">
+              <h2 className="text-2xl font-bold text-white mb-2">
+                {isOtpSent ? "Verify OTP" : "Mobile Number"}
+              </h2>
+              <p className="text-white/80">
+                {isOtpSent 
+                  ? `Enter the 6-digit OTP sent to +91 ${mobileNumber}`
+                  : "We'll send you a verification code"
+                }
+              </p>
+            </div>
+            
             {!isOtpSent ? (
-              <form onSubmit={handleSendOtp} className="space-y-4">
+              <form onSubmit={handleSendOtp} className="space-y-6">
                 <div className="space-y-2">
-                  <Label htmlFor="mobile">Mobile Number</Label>
+                  <Label htmlFor="mobile" className="text-white font-medium">Mobile Number</Label>
                   <div className="flex">
-                    <div className="flex items-center bg-gray-100 px-3 rounded-l-md border border-r-0">
-                      <span className="text-sm text-gray-600">+91</span>
+                    <div className="flex items-center bg-white/10 backdrop-blur-sm px-4 rounded-l-xl border border-white/20 border-r-0">
+                      <span className="text-sm text-white/90 font-medium">+91</span>
                     </div>
                     <Input
                       id="mobile"
@@ -103,30 +116,30 @@ export default function CreateAccount() {
                       placeholder="Enter 10-digit mobile number"
                       value={mobileNumber}
                       onChange={(e) => setMobileNumber(e.target.value.replace(/\D/g, '').slice(0, 10))}
-                      className="rounded-l-none"
+                      className="rounded-l-none bg-white/10 backdrop-blur-sm border-white/20 text-white placeholder:text-white/60 rounded-r-xl focus:border-purple-400 focus:ring-2 focus:ring-purple-400/50 focus:ring-offset-0 transition-all duration-300"
                       required
                     />
                   </div>
                 </div>
                 <Button 
                   type="submit" 
-                  className="w-full bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700"
+                  className="w-full bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-500 hover:to-blue-500 text-white font-semibold py-3 rounded-xl transition-all duration-300 transform hover:scale-105 hover:shadow-lg hover:shadow-purple-500/25 focus:scale-105 focus:shadow-lg focus:shadow-purple-500/25"
                   disabled={isLoading || mobileNumber.length !== 10}
                 >
                   {isLoading ? "Sending OTP..." : "Send OTP"}
                 </Button>
               </form>
             ) : (
-              <form onSubmit={handleVerifyOtp} className="space-y-4">
+              <form onSubmit={handleVerifyOtp} className="space-y-6">
                 <div className="space-y-2">
-                  <Label htmlFor="otp">Enter OTP</Label>
+                  <Label htmlFor="otp" className="text-white font-medium">Enter OTP</Label>
                   <Input
                     id="otp"
                     type="tel"
                     placeholder="Enter 6-digit OTP"
                     value={otp}
                     onChange={(e) => setOtp(e.target.value.replace(/\D/g, '').slice(0, 6))}
-                    className="text-center text-lg tracking-widest"
+                    className="text-center text-lg tracking-widest bg-white/10 backdrop-blur-sm border-white/20 text-white placeholder:text-white/60 rounded-xl focus:border-purple-400 focus:ring-2 focus:ring-purple-400/50 focus:ring-offset-0 transition-all duration-300"
                     required
                   />
                 </div>
@@ -134,22 +147,24 @@ export default function CreateAccount() {
                   <button 
                     type="button"
                     onClick={() => setIsOtpSent(false)}
-                    className="text-purple-600 hover:underline"
+                    className="text-white/90 hover:text-white relative inline-block group transition-colors duration-300"
                   >
-                    Change number
+                    <span className="relative z-10">Change number</span>
+                    <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-gradient-to-r from-purple-400 to-blue-400 transition-all duration-300 group-hover:w-full"></span>
                   </button>
                   <button 
                     type="button"
                     onClick={handleSendOtp}
-                    className="text-purple-600 hover:underline"
+                    className="text-white/90 hover:text-white relative inline-block group transition-colors duration-300"
                     disabled={isLoading}
                   >
-                    Resend OTP
+                    <span className="relative z-10">Resend OTP</span>
+                    <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-gradient-to-r from-purple-400 to-blue-400 transition-all duration-300 group-hover:w-full"></span>
                   </button>
                 </div>
                 <Button 
                   type="submit" 
-                  className="w-full bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700"
+                  className="w-full bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-500 hover:to-blue-500 text-white font-semibold py-3 rounded-xl transition-all duration-300 transform hover:scale-105 hover:shadow-lg hover:shadow-purple-500/25 focus:scale-105 focus:shadow-lg focus:shadow-purple-500/25"
                   disabled={isLoading || otp.length !== 6}
                 >
                   {isLoading ? "Verifying..." : "Verify & Continue"}
@@ -157,25 +172,27 @@ export default function CreateAccount() {
               </form>
             )}
             
-            <div className="mt-6 text-center">
-              <p className="text-xs text-gray-600">
+            <div className="mt-8 text-center">
+              <p className="text-xs text-white/70">
                 By continuing, you agree to our{" "}
-                <Link href="/terms" className="text-purple-600 hover:underline cursor-pointer">
-                  Terms of Service
+                <Link href="/terms" className="text-white/90 hover:text-white relative inline-block group transition-colors duration-300">
+                  <span className="relative z-10">Terms of Service</span>
+                  <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-gradient-to-r from-purple-400 to-blue-400 transition-all duration-300 group-hover:w-full"></span>
                 </Link>{" "}
                 and{" "}
-                <Link href="/privacy" className="text-purple-600 hover:underline cursor-pointer">
-                  Privacy Policy
+                <Link href="/privacy" className="text-white/90 hover:text-white relative inline-block group transition-colors duration-300">
+                  <span className="relative z-10">Privacy Policy</span>
+                  <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-gradient-to-r from-purple-400 to-blue-400 transition-all duration-300 group-hover:w-full"></span>
                 </Link>
               </p>
             </div>
-          </CardContent>
-        </Card>
+          </div>
+        </div>
 
         {/* Back to Home */}
-        <div className="text-center mt-6">
+        <div className="text-center mt-8">
           <Link href="/">
-            <Button variant="ghost" className="text-white hover:text-white/80 hover:bg-white/10">
+            <Button variant="ghost" className="text-white/90 hover:text-white hover:bg-white/10 backdrop-blur-sm border border-white/20 rounded-xl px-6 py-2 transition-all duration-300 transform hover:scale-105">
               ← Back to Home
             </Button>
           </Link>
