@@ -107,7 +107,7 @@ const InvestmentRooms = () => {
           <div className="flex gap-3 mb-3">
             <div className="flex-1">
               <Select value={filterType} onValueChange={setFilterType}>
-                <SelectTrigger className="h-9 text-sm bg-white/70 backdrop-blur-sm border-2 border-gray-200 hover:border-green-300 focus:border-green-400 hover:shadow-lg hover:shadow-green-500/20 transition-all duration-300 rounded-xl">
+                <SelectTrigger className="h-9 text-sm bg-white/70 backdrop-blur-sm border-2 border-gray-200 hover:border-gray-300 focus:border-gray-400 hover:shadow-lg hover:shadow-gray-500/20 transition-all duration-300 rounded-xl">
                   <SelectValue placeholder="Filter by Type" />
                 </SelectTrigger>
                 <SelectContent>
@@ -121,7 +121,7 @@ const InvestmentRooms = () => {
             
             <div className="flex-1">
               <Select value={filterCategory} onValueChange={setFilterCategory}>
-                <SelectTrigger className="h-9 text-sm bg-white/70 backdrop-blur-sm border-2 border-gray-200 hover:border-green-300 focus:border-green-400 hover:shadow-lg hover:shadow-green-500/20 transition-all duration-300 rounded-xl">
+                <SelectTrigger className="h-9 text-sm bg-white/70 backdrop-blur-sm border-2 border-gray-200 hover:border-gray-300 focus:border-gray-400 hover:shadow-lg hover:shadow-gray-500/20 transition-all duration-300 rounded-xl">
                   <SelectValue placeholder="Category" />
                 </SelectTrigger>
                 <SelectContent>
@@ -141,18 +141,22 @@ const InvestmentRooms = () => {
       {/* Rooms List */}
       <div className="max-w-md mx-auto p-4 space-y-4">
         {filteredRooms.map((room) => (
-          <div key={room.id} className="bg-white/70 backdrop-blur-md border-2 border-gray-200 hover:border-green-300 shadow-lg hover:shadow-xl hover:shadow-green-500/20 transition-all duration-300 transform hover:scale-[1.02] active:scale-[0.98] rounded-2xl">
+          <div key={room.id} className="bg-white/70 backdrop-blur-md border-2 border-gray-200 hover:border-gray-300 shadow-lg hover:shadow-xl hover:shadow-gray-500/20 transition-all duration-300 transform hover:scale-[1.02] active:scale-[0.98] rounded-2xl relative">
             <div className="p-4">
+              {/* Sponsored Badge - Top Right */}
+              {room.isSponsored && (
+                <div className="absolute top-3 right-3">
+                  <Badge className="text-xs bg-blue-100/70 backdrop-blur-sm text-blue-700 border-2 border-blue-200 hover:border-blue-300 hover:shadow-sm hover:shadow-blue-500/20 transition-all duration-300">
+                    Sponsored
+                  </Badge>
+                </div>
+              )}
+
               {/* Room Header */}
               <div className="flex items-start justify-between mb-3">
                 <div className="flex-1">
                   <div className="flex items-center space-x-2 mb-1">
                     <h3 className="font-semibold text-sm">{room.name}</h3>
-                    {room.isSponsored && (
-                      <Badge className="text-xs bg-blue-100/70 backdrop-blur-sm text-blue-700 border-2 border-blue-200 hover:border-blue-300 hover:shadow-sm hover:shadow-blue-500/20 transition-all duration-300">
-                        Sponsored by {room.sponsorName}
-                      </Badge>
-                    )}
                   </div>
                   <p className="text-xs text-gray-600 mb-2">{room.description}</p>
                   
@@ -191,7 +195,7 @@ const InvestmentRooms = () => {
               {/* Badges */}
               <div className="flex flex-wrap gap-1 mb-3">
                 {room.badges.map((badge, index) => (
-                  <Badge key={index} variant="secondary" className="text-xs border-2 hover:border-green-300 hover:shadow-sm hover:shadow-green-500/20 transition-all duration-300 bg-gray-100/70 backdrop-blur-sm">
+                  <Badge key={index} variant="secondary" className="text-xs border-2 hover:border-gray-300 hover:shadow-sm hover:shadow-gray-500/20 transition-all duration-300 bg-gray-100/70 backdrop-blur-sm">
                     {badge}
                   </Badge>
                 ))}
@@ -214,7 +218,7 @@ const InvestmentRooms = () => {
           <div className="bg-white/70 backdrop-blur-md border-2 border-gray-200 hover:border-gray-300 shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-[1.02] rounded-2xl text-center py-8">
             <span className="material-icons text-4xl text-gray-300 mb-2">meeting_room</span>
             <p className="text-gray-600">No rooms found for selected filters</p>
-            <Button variant="outline" size="sm" className="mt-3 border-2 hover:border-green-300 hover:shadow-md hover:shadow-green-500/20 transition-all duration-300 hover:scale-105 active:scale-95" onClick={() => {
+            <Button variant="outline" size="sm" className="mt-3 border-2 hover:border-gray-300 hover:shadow-md hover:shadow-gray-500/20 transition-all duration-300 hover:scale-105 active:scale-95" onClick={() => {
               setFilterCategory("all");
               setFilterType("all");
             }}>
