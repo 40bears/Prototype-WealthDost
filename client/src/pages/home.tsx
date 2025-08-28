@@ -3,7 +3,6 @@ import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 
 const Home = () => {
-
   return (
     <div className="flex flex-col min-h-screen bg-gray-50">
       {/* Top Navigation Bar */}
@@ -68,8 +67,6 @@ const Home = () => {
           </div>
         </div>
       </div>
-
-
 
       <div className="mt-auto text-center text-xs text-gray-500 px-4 py-2">
         By signing up, you agree to our Terms of Service and Privacy Policy
