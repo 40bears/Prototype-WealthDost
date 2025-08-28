@@ -8,6 +8,10 @@ import ContentFeed from "@/components/dashboard/ContentFeed";
 import { Button } from "@/components/ui/button";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
+import { Badge } from "@/components/ui/badge";
+import { Heart, MessageCircle, Share, Star, TrendingUp } from "lucide-react";
+import { useInteraction } from "@/lib/interactionContext";
+import { CommentModal } from "@/components/ui/comment-modal";
 
 // Define feature types for our top navigation
 type FeatureType = "watchlist" | "analytics" | "debate" | "quiz" | "news";
@@ -15,9 +19,81 @@ type FeatureType = "watchlist" | "analytics" | "debate" | "quiz" | "news";
 // Define bottom tab types
 type Tab = "home" | "experts" | "explore" | "top-analyst" | "invroom";
 
+// Demo community feed data
+const communityPosts = [
+  {
+    id: 'dash-1',
+    content: 'Apple stock showing strong momentum after Q1 earnings beat. Revenue up 8% YoY with services segment driving growth. Looking for potential entry around $185-190 range.',
+    author: {
+      name: 'Sarah Chen',
+      username: '@sarahc_trades',
+      isExpert: true,
+      expertise: 'Tech Analyst'
+    },
+    createdAt: '2h ago',
+    likes: 234,
+    comments: 45,
+    postType: 'analysis',
+    hashtags: ['AAPL', 'TechStocks']
+  },
+  {
+    id: 'dash-2',
+    content: 'Tesla Model Y refresh announcement could be a catalyst for the stock. Watching for entry around $185-190 range. What are your thoughts on EV market this quarter?',
+    author: {
+      name: 'Alex Kumar',
+      username: '@alex_investing',
+      isExpert: true,
+      expertise: 'EV Specialist'
+    },
+    createdAt: '4h ago',
+    likes: 187,
+    comments: 32,
+    postType: 'discussion',
+    hashtags: ['TSLA', 'EVStocks']
+  },
+  {
+    id: 'dash-3',
+    content: 'Market showing mixed signals today. Tech down 2.3% while energy sector up 1.8%. Perfect time for portfolio rebalancing. Remember to stick to your strategy!',
+    author: {
+      name: 'Michael Rodriguez',
+      username: '@mike_portfolio',
+      isExpert: false,
+      expertise: 'Individual Investor'
+    },
+    createdAt: '6h ago',
+    likes: 156,
+    comments: 28,
+    postType: 'news',
+    hashtags: ['MarketUpdate', 'Portfolio']
+  },
+  {
+    id: 'dash-4',
+    content: 'Just completed my analysis on renewable energy stocks. Solar companies showing strong fundamentals with government backing. Detailed report in comments below.',
+    author: {
+      name: 'Emma Thompson',
+      username: '@emma_energy',
+      isExpert: true,
+      expertise: 'Energy Analyst'
+    },
+    createdAt: '8h ago',
+    likes: 298,
+    comments: 67,
+    postType: 'analysis',
+    hashtags: ['RenewableEnergy', 'CleanTech']
+  }
+];
+
 const Dashboard = () => {
   const [activeTab, setActiveTab] = useState<Tab>("home");
   const [activeFeature, setActiveFeature] = useState<FeatureType>("watchlist");
+  
+  const { 
+    toggleLike, 
+    sharePost, 
+    addComment, 
+    isLiked, 
+    getCommentCount 
+  } = useInteraction();
 
   // Fetch market data
   const { data: marketData, isLoading: isLoadingMarketData } = useQuery({
@@ -398,7 +474,96 @@ const Dashboard = () => {
           <div className="px-4 py-6">
             <WelcomeCard />
             <MarketOverview data={typedMarketData} isLoading={isLoadingMarketData} />
-            <ContentFeed posts={typedPosts} isLoading={isLoadingPosts} />
+            
+            {/* Interactive Community Feed */}
+            <div className="mt-6">
+              <h3 className="text-lg font-semibold mb-4 flex items-center gap-2">
+                <TrendingUp className="h-5 w-5 text-primary" />
+                Community Feed
+              </h3>
+              <div className="space-y-4">
+                {communityPosts.map((post) => {
+                  const liked = isLiked(post.id);
+                  const commentCount = getCommentCount(post.id);
+                  
+                  return (
+                    <Card key={post.id} className="bg-white/70 backdrop-blur-md border-2 border-gray-200 hover:border-gray-300 shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-[1.02] active:scale-[0.98] rounded-2xl overflow-hidden">
+                      <CardContent className="p-4">
+                        {/* Author Info */}
+                        <div className="flex items-center gap-3 mb-3">
+                          <Avatar className="h-10 w-10">
+                            <AvatarFallback className="bg-gradient-to-r from-purple-500 to-blue-500 text-white text-sm font-bold">
+                              {post.author.name.split(' ').map(n => n[0]).join('')}
+                            </AvatarFallback>
+                          </Avatar>
+                          <div className="flex-1">
+                            <div className="flex items-center gap-2">
+                              <h4 className="font-medium text-sm">{post.author.name}</h4>
+                              {post.author.isExpert && (
+                                <div className="p-1 bg-yellow-100/70 backdrop-blur-sm border border-yellow-200 rounded-full">
+                                  <Star className="h-3 w-3 text-yellow-600 fill-current" />
+                                </div>
+                              )}
+                            </div>
+                            <p className="text-xs text-gray-500">{post.author.expertise} • {post.createdAt}</p>
+                          </div>
+                          <Badge variant="outline" className="text-xs border-2 backdrop-blur-sm">
+                            {post.postType}
+                          </Badge>
+                        </div>
+
+                        {/* Post Content */}
+                        <p className="text-sm text-gray-700 mb-3 leading-relaxed">{post.content}</p>
+
+                        {/* Hashtags */}
+                        <div className="flex flex-wrap gap-1 mb-3">
+                          {post.hashtags.map((tag) => (
+                            <Badge key={tag} variant="secondary" className="text-xs bg-blue-50/70 text-blue-700 border border-blue-200 hover:border-blue-300">
+                              #{tag}
+                            </Badge>
+                          ))}
+                        </div>
+
+                        {/* Interactive Buttons */}
+                        <div className="flex items-center justify-between pt-3 border-t-2 border-gray-100">
+                          <Button
+                            variant="ghost"
+                            size="sm"
+                            className={`flex items-center space-x-1 text-xs border-2 border-transparent rounded-xl transition-all duration-300 active:scale-95 hover:bg-red-50/70 hover:backdrop-blur-sm ${
+                              liked ? 'text-red-600 bg-red-50/70 backdrop-blur-sm border-red-200' : 'text-gray-500'
+                            }`}
+                            onClick={() => toggleLike(post.id)}
+                          >
+                            <Heart size={14} className={`transition-all duration-300 ${liked ? 'fill-current' : ''}`} />
+                            <span className="font-medium">{post.likes + (liked ? 1 : 0)}</span>
+                          </Button>
+                          
+                          <CommentModal postId={post.id} onAddComment={addComment}>
+                            <Button
+                              variant="ghost"
+                              size="sm"
+                              className="flex items-center space-x-1 text-xs text-gray-500 border-2 border-transparent rounded-xl transition-all duration-300 active:scale-95 hover:bg-blue-50/70 hover:backdrop-blur-sm hover:text-blue-600"
+                            >
+                              <MessageCircle size={14} className="transition-all duration-300" />
+                              <span className="font-medium">{post.comments + commentCount}</span>
+                            </Button>
+                          </CommentModal>
+                          
+                          <Button
+                            variant="ghost"
+                            size="sm"
+                            className="flex items-center space-x-1 text-xs text-gray-500 border-2 border-transparent rounded-xl transition-all duration-300 active:scale-95 hover:bg-gray-50/70 hover:backdrop-blur-sm hover:text-gray-600"
+                            onClick={() => sharePost(post.id)}
+                          >
+                            <Share size={14} className="transition-all duration-300" />
+                          </Button>
+                        </div>
+                      </CardContent>
+                    </Card>
+                  );
+                })}
+              </div>
+            </div>
           </div>
         ) : activeTab === "experts" ? (
           <div className="px-4 py-6">
@@ -671,20 +836,8 @@ const Dashboard = () => {
           </div>
         );
       }
-      default:
-        return (
-          <>
-            <WelcomeCard />
-            <MarketOverview data={typedMarketData} isLoading={isLoadingMarketData} />
-            <ContentFeed posts={typedPosts} isLoading={isLoadingPosts} />
-          </>
-        );
     }
   };
-
-  // Type assertions for data to fix typescript issues
-  const typedMarketData = marketData as any[];
-  const typedPosts = posts as any[];
 
   return (
     <div className="flex flex-col h-full relative">
