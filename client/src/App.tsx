@@ -25,6 +25,9 @@ import GlobalSearch from "@/pages/global-search";
 import Terms from "@/pages/terms";
 import Privacy from "@/pages/privacy";
 import Analytics from "@/pages/analytics";
+import HelpContact from "@/pages/help-contact";
+import HelpGuide from "@/pages/help-guide";
+import HelpCategory from "@/pages/help-category";
 import BottomNavigation from "@/components/dashboard/BottomNavigation";
 
 function Router() {
@@ -65,7 +68,10 @@ function Router() {
           <Route path="/my-posts" component={MyPosts} />
           <Route path="/activity" component={Activity} />
           <Route path="/settings" component={Settings} />
-          <Route path="/help" component={HelpCenter} />
+          <Route path="/help-center" component={HelpCenter} />
+          <Route path="/help/contact" component={HelpContact} />
+          <Route path="/help/guide" component={HelpGuide} />
+          <Route path="/help/category/:category" component={HelpCategory} />
           <Route path="/loops" component={Loops} />
           <Route path="/stock-tips" component={StockTips} />
           <Route path="/search" component={GlobalSearch} />
