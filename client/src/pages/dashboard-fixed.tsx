@@ -1195,15 +1195,15 @@ const Dashboard = () => {
               
               {/* Support */}
               <DropdownMenuGroup>
-                <DropdownMenuItem className="cursor-pointer" onClick={() => window.location.href = "/help"}>
+                <DropdownMenuItem className="cursor-pointer" onClick={() => window.location.href = "/help-center"}>
                   <HelpCircle className="mr-2 h-4 w-4" />
                   <span>Help Center</span>
                 </DropdownMenuItem>
-                <DropdownMenuItem className="cursor-pointer" onClick={() => window.location.href = "/help"}>
+                <DropdownMenuItem className="cursor-pointer" onClick={() => window.location.href = "/help/contact"}>
                   <Settings className="mr-2 h-4 w-4" />
                   <span>Report Bug / Feedback</span>
                 </DropdownMenuItem>
-                <DropdownMenuItem className="cursor-pointer" onClick={() => window.location.href = "/help"}>
+                <DropdownMenuItem className="cursor-pointer" onClick={() => window.location.href = "/help/contact"}>
                   <span className="material-icons mr-2 text-base">support_agent</span>
                   <span>Contact Support</span>
                 </DropdownMenuItem>
