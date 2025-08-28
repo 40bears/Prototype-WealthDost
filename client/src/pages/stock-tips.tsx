@@ -305,7 +305,7 @@ export default function StockTips() {
                     }`}
                     onClick={() => toggleLike(tip.id)}
                   >
-                    <Heart size={14} className={`transition-all duration-300 ${isLiked(tip.id) ? 'fill-current animate-pulse' : ''}`} />
+                    <Heart size={14} className={`transition-all duration-300 ${isLiked(tip.id) ? 'fill-current' : ''}`} />
                     <span className="font-medium">{24 + (isLiked(tip.id) ? 1 : 0)}</span>
                   </Button>
                   
@@ -323,13 +323,10 @@ export default function StockTips() {
                   <Button
                     variant="ghost"
                     size="sm"
-                    className={`flex items-center space-x-1 text-xs border-2 border-transparent rounded-xl transition-all duration-300 active:scale-95 hover:bg-green-50/70 hover:backdrop-blur-sm hover:text-green-600 ${
-                      getShareCount(tip.id) > 0 ? 'text-green-600 bg-green-50/70 backdrop-blur-sm border-green-200' : 'text-gray-500'
-                    }`}
+                    className="flex items-center space-x-1 text-xs text-gray-500 border-2 border-transparent rounded-xl transition-all duration-300 active:scale-95 hover:bg-gray-50/70 hover:backdrop-blur-sm hover:text-gray-600"
                     onClick={() => sharePost(tip.id)}
                   >
                     <Share size={14} className="transition-all duration-300" />
-                    <span className="font-medium">{getShareCount(tip.id) > 0 ? getShareCount(tip.id) : ''}</span>
                   </Button>
                 </div>
               </div>
@@ -339,7 +336,7 @@ export default function StockTips() {
       </div>
 
       {/* Bottom Navigation */}
-      <BottomNavigation />
+      <BottomNavigation activeTab="stock-tips" onTabChange={() => {}} />
 
       {/* Create Post Modal */}
       <EnhancedCreatePostModal

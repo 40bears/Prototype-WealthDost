@@ -78,12 +78,15 @@ export function CommentModal({ postId, onAddComment, children }: CommentModalPro
       <DialogTrigger asChild>
         {children}
       </DialogTrigger>
-      <DialogContent className="max-w-md mx-auto max-h-[80vh] flex flex-col bg-white/90 backdrop-blur-md border-2 border-gray-200">
+      <DialogContent className="max-w-md mx-auto max-h-[80vh] flex flex-col bg-white/90 backdrop-blur-md border-2 border-gray-200" aria-describedby="comment-modal-description">
         <DialogHeader className="flex-shrink-0">
           <DialogTitle className="flex items-center space-x-2 text-lg">
             <MessageCircle size={20} className="text-blue-600" />
             <span>Comments</span>
           </DialogTitle>
+          <div id="comment-modal-description" className="sr-only">
+            Add and view comments on this post
+          </div>
         </DialogHeader>
         
         {/* Comment Input */}

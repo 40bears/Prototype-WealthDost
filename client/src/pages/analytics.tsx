@@ -4,6 +4,8 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { TrendingUp, TrendingDown, Users, Heart, MessageCircle, Share, ArrowLeft, BarChart3, Eye, Calendar } from "lucide-react";
+import { useInteraction } from "@/lib/interactionContext";
+import { CommentModal } from "@/components/ui/comment-modal";
 
 interface AnalyticsData {
   totalPosts: number;
@@ -32,6 +34,14 @@ interface AnalyticsData {
 
 const Analytics = () => {
   const [activeTab, setActiveTab] = useState<"overview" | "posts" | "engagement">("overview");
+  
+  const { 
+    toggleLike, 
+    sharePost, 
+    addComment, 
+    isLiked, 
+    getCommentCount 
+  } = useInteraction();
 
   // Mock analytics data
   const analyticsData: AnalyticsData = {
@@ -253,20 +263,39 @@ const Analytics = () => {
                       </Badge>
                     </div>
                     <p className="text-xs text-gray-700 mb-3 line-clamp-2">{post.content}</p>
-                    <div className="flex items-center justify-between text-xs text-gray-500">
-                      <div className="flex items-center space-x-3">
-                        <div className="flex items-center space-x-1">
-                          <Heart size={10} className="text-red-500" />
-                          <span>{post.likes}</span>
-                        </div>
-                        <div className="flex items-center space-x-1">
-                          <MessageCircle size={10} className="text-blue-500" />
-                          <span>{post.comments}</span>
-                        </div>
-                        <div className="flex items-center space-x-1">
-                          <Share size={10} className="text-green-500" />
-                          <span>{post.shares}</span>
-                        </div>
+                    <div className="flex items-center justify-between text-xs border-t-2 border-gray-100 pt-2 mt-2">
+                      <div className="flex items-center space-x-2">
+                        <Button
+                          variant="ghost"
+                          size="sm"
+                          className={`flex items-center space-x-1 text-xs border-2 border-transparent rounded-lg transition-all duration-300 active:scale-95 hover:bg-red-50/70 hover:backdrop-blur-sm p-1 h-auto ${
+                            isLiked(post.id) ? 'text-red-600 bg-red-50/70 backdrop-blur-sm border-red-200' : 'text-gray-500'
+                          }`}
+                          onClick={() => toggleLike(post.id)}
+                        >
+                          <Heart size={10} className={`transition-all duration-300 ${isLiked(post.id) ? 'fill-current' : ''}`} />
+                          <span className="font-medium">{post.likes + (isLiked(post.id) ? 1 : 0)}</span>
+                        </Button>
+                        
+                        <CommentModal postId={post.id} onAddComment={addComment}>
+                          <Button
+                            variant="ghost"
+                            size="sm"
+                            className="flex items-center space-x-1 text-xs text-gray-500 border-2 border-transparent rounded-lg transition-all duration-300 active:scale-95 hover:bg-blue-50/70 hover:backdrop-blur-sm hover:text-blue-600 p-1 h-auto"
+                          >
+                            <MessageCircle size={10} className="transition-all duration-300" />
+                            <span className="font-medium">{post.comments + getCommentCount(post.id)}</span>
+                          </Button>
+                        </CommentModal>
+                        
+                        <Button
+                          variant="ghost"
+                          size="sm"
+                          className="flex items-center space-x-1 text-xs text-gray-500 border-2 border-transparent rounded-lg transition-all duration-300 active:scale-95 hover:bg-gray-50/70 hover:backdrop-blur-sm hover:text-gray-600 p-1 h-auto"
+                          onClick={() => sharePost(post.id)}
+                        >
+                          <Share size={10} className="transition-all duration-300" />
+                        </Button>
                       </div>
                       <span className="text-gray-400">{post.createdAt}</span>
                     </div>

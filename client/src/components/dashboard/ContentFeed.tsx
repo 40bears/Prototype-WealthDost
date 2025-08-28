@@ -123,7 +123,7 @@ const ContentFeed = ({ posts, isLoading = false }: ContentFeedProps) => {
                   }`}
                   onClick={() => toggleLike(post.id)}
                 >
-                  <Heart size={14} className={`transition-all duration-300 ${liked ? 'fill-current animate-pulse' : ''}`} />
+                  <Heart size={14} className={`transition-all duration-300 ${liked ? 'fill-current' : ''}`} />
                   <span className="font-medium">{(post.likes || 0) + (liked ? 1 : 0)}</span>
                 </Button>
                 
@@ -141,13 +141,10 @@ const ContentFeed = ({ posts, isLoading = false }: ContentFeedProps) => {
                 <Button
                   variant="ghost"
                   size="sm"
-                  className={`flex items-center space-x-1 text-xs border-2 border-transparent rounded-xl transition-all duration-300 active:scale-95 hover:bg-green-50/70 hover:backdrop-blur-sm hover:text-green-600 ${
-                    shareCount > 0 ? 'text-green-600 bg-green-50/70 backdrop-blur-sm border-green-200' : 'text-gray-500'
-                  }`}
+                  className="flex items-center space-x-1 text-xs text-gray-500 border-2 border-transparent rounded-xl transition-all duration-300 active:scale-95 hover:bg-gray-50/70 hover:backdrop-blur-sm hover:text-gray-600"
                   onClick={() => sharePost(post.id)}
                 >
                   <Share size={14} className="transition-all duration-300" />
-                  <span className="font-medium">{shareCount > 0 ? shareCount : ''}</span>
                 </Button>
               </div>
             </div>
