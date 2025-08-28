@@ -11,6 +11,7 @@ import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { Label } from "@/components/ui/label";
 import { useInteraction } from "@/lib/interactionContext";
 import { Heart, MessageCircle, Share, UserPlus, UserCheck } from "lucide-react";
+import { CommentModal } from "@/components/ui/comment-modal";
 
 interface ContentFeedProps {
   posts?: Post[];
@@ -117,33 +118,36 @@ const ContentFeed = ({ posts, isLoading = false }: ContentFeedProps) => {
                 <Button
                   variant="ghost"
                   size="sm"
-                  className={`flex items-center space-x-1 text-xs border-2 border-transparent rounded-xl transition-all duration-300 active:scale-95 ${
-                    liked ? 'text-red-600' : 'text-gray-500'
+                  className={`flex items-center space-x-1 text-xs border-2 border-transparent rounded-xl transition-all duration-300 active:scale-95 hover:bg-red-50/70 hover:backdrop-blur-sm ${
+                    liked ? 'text-red-600 bg-red-50/70 backdrop-blur-sm border-red-200' : 'text-gray-500'
                   }`}
                   onClick={() => toggleLike(post.id)}
                 >
-                  <Heart size={14} className={liked ? 'fill-current' : ''} />
-                  <span>{(post.likes || 0) + (liked ? 1 : 0)}</span>
+                  <Heart size={14} className={`transition-all duration-300 ${liked ? 'fill-current animate-pulse' : ''}`} />
+                  <span className="font-medium">{(post.likes || 0) + (liked ? 1 : 0)}</span>
                 </Button>
+                
+                <CommentModal postId={post.id} onAddComment={addComment}>
+                  <Button
+                    variant="ghost"
+                    size="sm"
+                    className="flex items-center space-x-1 text-xs text-gray-500 border-2 border-transparent rounded-xl transition-all duration-300 active:scale-95 hover:bg-blue-50/70 hover:backdrop-blur-sm hover:text-blue-600"
+                  >
+                    <MessageCircle size={14} className="transition-all duration-300" />
+                    <span className="font-medium">{(post.comments || 0) + commentCount}</span>
+                  </Button>
+                </CommentModal>
                 
                 <Button
                   variant="ghost"
                   size="sm"
-                  className="flex items-center space-x-1 text-xs text-gray-500 border-2 border-transparent rounded-xl transition-all duration-300 active:scale-95"
-                  onClick={() => addComment(post.id)}
-                >
-                  <MessageCircle size={14} />
-                  <span>{(post.comments || 0) + commentCount}</span>
-                </Button>
-                
-                <Button
-                  variant="ghost"
-                  size="sm"
-                  className="flex items-center space-x-1 text-xs text-gray-500 border-2 border-transparent rounded-xl transition-all duration-300 active:scale-95"
+                  className={`flex items-center space-x-1 text-xs border-2 border-transparent rounded-xl transition-all duration-300 active:scale-95 hover:bg-green-50/70 hover:backdrop-blur-sm hover:text-green-600 ${
+                    shareCount > 0 ? 'text-green-600 bg-green-50/70 backdrop-blur-sm border-green-200' : 'text-gray-500'
+                  }`}
                   onClick={() => sharePost(post.id)}
                 >
-                  <Share size={14} />
-                  <span>{shareCount > 0 ? shareCount : ''}</span>
+                  <Share size={14} className="transition-all duration-300" />
+                  <span className="font-medium">{shareCount > 0 ? shareCount : ''}</span>
                 </Button>
               </div>
             </div>

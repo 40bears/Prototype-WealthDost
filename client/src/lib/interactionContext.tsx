@@ -72,18 +72,28 @@ export function InteractionProvider({ children }: { children: React.ReactNode })
       }
     }));
 
-    // Simulate sharing functionality
+    // Share functionality with fallback
+    const shareContent = {
+      title: 'WealthDost Post',
+      text: 'Check out this investment insight on WealthDost!',
+      url: window.location.href
+    };
+
     if (navigator.share) {
-      navigator.share({
-        title: 'WealthDost Post',
-        text: 'Check out this investment insight on WealthDost',
-        url: window.location.href
+      navigator.share(shareContent).catch(() => {
+        // Fallback if share fails
+        navigator.clipboard.writeText(window.location.href);
+        toast({
+          title: "Post Shared",
+          description: "Link copied to clipboard",
+          duration: 2000
+        });
       });
     } else {
       // Fallback for browsers without Web Share API
       navigator.clipboard.writeText(window.location.href);
       toast({
-        title: "Shared",
+        title: "Post Shared",
         description: "Link copied to clipboard",
         duration: 2000
       });
