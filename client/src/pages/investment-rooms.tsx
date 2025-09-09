@@ -85,7 +85,7 @@ const InvestmentRooms = () => {
     <div className="min-h-screen bg-gradient-to-br from-gray-50 via-green-50/30 to-gray-100">
       {/* Header */}
       <div className="sticky top-0 bg-white/80 backdrop-blur-md border-b-2 border-gray-200/50 shadow-lg z-20">
-        <div className="max-w-md mx-auto p-4">
+        <div className="max-w-md mx-auto px-4 py-4">
           <div className="flex items-center justify-between mb-3">
             <Link href="/dashboard">
               <Button variant="ghost" size="sm" className="p-1 text-gray-600 border-2 border-transparent hover:border-gray-300 hover:shadow-lg hover:shadow-gray-500/20 transition-all duration-300 hover:scale-105 active:scale-95 rounded-xl">
@@ -139,7 +139,7 @@ const InvestmentRooms = () => {
       </div>
 
       {/* Rooms List */}
-      <div className="max-w-md mx-auto p-4 space-y-4">
+      <div className="max-w-md mx-auto px-4 pb-24 space-y-4">
         {filteredRooms.map((room) => (
           <div key={room.id} className="bg-white/70 backdrop-blur-md border-2 border-gray-200 hover:border-gray-300 shadow-lg hover:shadow-xl hover:shadow-gray-500/20 transition-all duration-300 transform hover:scale-[1.02] active:scale-[0.98] rounded-2xl relative">
             <div className="p-4">
