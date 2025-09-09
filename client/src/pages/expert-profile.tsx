@@ -389,7 +389,8 @@ const ExpertProfile = () => {
       </div>
 
       {/* Main Content */}
-      <div className="max-w-md mx-auto pb-20">
+<parameter name="px-4 pb-24">
+      <div className="max-w-md mx-auto px-4 pb-24">
         <Tabs defaultValue="performance" className="w-full">
           <div className="sticky top-[140px] bg-gray-50 z-10 px-4 pt-2">
             <TabsList className="grid w-full grid-cols-4 mb-2">
