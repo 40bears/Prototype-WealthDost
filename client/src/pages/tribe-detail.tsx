@@ -27,6 +27,7 @@ const TribeDetail = () => {
     description: "Deep dive into fundamental analysis and long-term value investing strategies. Learn from experienced investors and share your insights.",
     creator: "Rajesh Kumar",
     creatorAvatar: "RK",
+    creatorUsername: "rajeshkumar",
     category: "Value Investing",
     memberCount: 1250,
     isPremium: true,
@@ -51,7 +52,8 @@ const TribeDetail = () => {
       id: 1,
       author: tribe.creator,
       authorAvatar: tribe.creatorAvatar,
-      timestamp: "2 hours ago",
+      authorUsername: tribe.creatorUsername,
+      timestamp: "2h",
       content: "Just analyzed Tata Steel's latest quarterly results. The debt-to-equity ratio is improving significantly. What are your thoughts on their expansion plans?",
       likes: 24,
       comments: 8,
@@ -61,7 +63,8 @@ const TribeDetail = () => {
       id: 2,
       author: tribe.creator,
       authorAvatar: tribe.creatorAvatar,
-      timestamp: "5 hours ago",
+      authorUsername: tribe.creatorUsername,
+      timestamp: "5h",
       content: "Warren Buffett's latest letter mentions the importance of patience in value investing. How do you maintain discipline during market volatility?",
       likes: 18,
       comments: 12,
@@ -71,7 +74,8 @@ const TribeDetail = () => {
       id: 3,
       author: tribe.creator,
       authorAvatar: tribe.creatorAvatar,
-      timestamp: "1 day ago",
+      authorUsername: tribe.creatorUsername,
+      timestamp: "1d",
       content: "Found an interesting undervalued stock in the pharmaceutical sector. ROE consistently above 15% for the past 5 years. DM me for details (Premium members only).",
       likes: 31,
       comments: 15,
@@ -270,12 +274,13 @@ const TribeDetail = () => {
                       </AvatarFallback>
                     </Avatar>
                     <div className="flex-1">
-                      <div className="flex items-center space-x-2 mb-1">
+                      <div className="flex items-center space-x-1 mb-2">
                         <h4 className="font-semibold text-sm">{post.author}</h4>
-                        <span className="text-xs text-gray-500">•</span>
-                        <span className="text-xs text-gray-500">{post.timestamp}</span>
+                        <span className="text-gray-500 text-sm">@{post.authorUsername}</span>
+                        <span className="text-gray-400 text-sm">·</span>
+                        <span className="text-gray-500 text-sm">{post.timestamp}</span>
                       </div>
-                      <p className="text-sm text-gray-700">{post.content}</p>
+                      <p className="text-sm text-gray-900 leading-relaxed">{post.content}</p>
                     </div>
                   </div>
                   
