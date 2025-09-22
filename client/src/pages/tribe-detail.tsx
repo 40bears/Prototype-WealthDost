@@ -68,12 +68,6 @@ const TribeDetail = () => {
     }
   ];
 
-  const topMembers = [
-    { name: "Rajesh Kumar", avatar: "RK", role: "Creator", posts: 156 },
-    { name: "Priya Mehta", avatar: "PM", role: "Top Contributor", posts: 89 },
-    { name: "Amit Sharma", avatar: "AS", role: "Active Member", posts: 67 },
-    { name: "Neha Gupta", avatar: "NG", role: "Member", posts: 42 }
-  ];
 
   const handleJoinSubscribe = () => {
     if (tribe.isPremium && !isJoined) {
@@ -205,9 +199,8 @@ const TribeDetail = () => {
       {/* Content Tabs */}
       <div className="max-w-md mx-auto px-4 pb-24">
         <Tabs defaultValue="posts" className="w-full">
-          <TabsList className="grid w-full grid-cols-3 bg-white/70 backdrop-blur-md border-2 border-gray-200">
+          <TabsList className="grid w-full grid-cols-2 bg-white/70 backdrop-blur-md border-2 border-gray-200">
             <TabsTrigger value="posts" className="text-sm">Posts</TabsTrigger>
-            <TabsTrigger value="members" className="text-sm">Members</TabsTrigger>
             <TabsTrigger value="about" className="text-sm">About</TabsTrigger>
           </TabsList>
           
@@ -258,29 +251,6 @@ const TribeDetail = () => {
             ))}
           </TabsContent>
           
-          <TabsContent value="members" className="space-y-4 mt-4">
-            {topMembers.map((member, index) => (
-              <div key={index} className="bg-white/70 backdrop-blur-md border-2 border-gray-200 hover:border-gray-300 shadow-lg hover:shadow-xl transition-all duration-300 rounded-2xl">
-                <div className="p-4">
-                  <div className="flex items-center space-x-3">
-                    <Avatar className="h-12 w-12 border-2 border-purple-200">
-                      <AvatarFallback className="bg-purple-100 text-purple-600">
-                        {member.avatar}
-                      </AvatarFallback>
-                    </Avatar>
-                    <div className="flex-1">
-                      <h4 className="font-semibold text-sm">{member.name}</h4>
-                      <p className="text-xs text-gray-600">{member.role}</p>
-                      <p className="text-xs text-gray-500">{member.posts} posts</p>
-                    </div>
-                    <Button variant="outline" size="sm" className="border-2 hover:border-purple-300 text-purple-600">
-                      Follow
-                    </Button>
-                  </div>
-                </div>
-              </div>
-            ))}
-          </TabsContent>
           
           <TabsContent value="about" className="space-y-4 mt-4">
             <div className="bg-white/70 backdrop-blur-md border-2 border-gray-200 shadow-lg rounded-2xl">
