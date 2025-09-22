@@ -21,7 +21,8 @@ const TribeDetail = () => {
     isPremium: true,
     premiumPrice: "299",
     isSponsored: false,
-    xpReward: 50,
+    tipsHits: 1250,
+    weeklyEngagement: 89,
     badges: ["Expert Verified", "High Activity"],
     createdDate: "March 2024",
     coverImage: null, // Would be a URL in real implementation
@@ -33,11 +34,12 @@ const TribeDetail = () => {
     ]
   };
 
+  // Only creator posts since only the creator will be posting
   const posts = [
     {
       id: 1,
-      author: "Rajesh Kumar",
-      authorAvatar: "RK",
+      author: tribe.creator,
+      authorAvatar: tribe.creatorAvatar,
       timestamp: "2 hours ago",
       content: "Just analyzed Tata Steel's latest quarterly results. The debt-to-equity ratio is improving significantly. What are your thoughts on their expansion plans?",
       likes: 24,
@@ -46,8 +48,8 @@ const TribeDetail = () => {
     },
     {
       id: 2,
-      author: "Priya Mehta",
-      authorAvatar: "PM",
+      author: tribe.creator,
+      authorAvatar: tribe.creatorAvatar,
       timestamp: "5 hours ago",
       content: "Warren Buffett's latest letter mentions the importance of patience in value investing. How do you maintain discipline during market volatility?",
       likes: 18,
@@ -56,8 +58,8 @@ const TribeDetail = () => {
     },
     {
       id: 3,
-      author: "Amit Sharma",
-      authorAvatar: "AS",
+      author: tribe.creator,
+      authorAvatar: tribe.creatorAvatar,
       timestamp: "1 day ago",
       content: "Found an interesting undervalued stock in the pharmaceutical sector. ROE consistently above 15% for the past 5 years. DM me for details (Premium members only).",
       likes: 31,
@@ -159,8 +161,12 @@ const TribeDetail = () => {
                 {tribe.memberCount.toLocaleString()} members
               </span>
               <span className="flex items-center">
-                <span className="material-icons text-sm mr-1">stars</span>
-                +{tribe.xpReward} XP
+                <span className="material-icons text-sm mr-1">trending_up</span>
+                {tribe.tipsHits} hits
+              </span>
+              <span className="flex items-center">
+                <span className="material-icons text-sm mr-1">bar_chart</span>
+                {tribe.weeklyEngagement}% weekly
               </span>
             </div>
             
@@ -300,16 +306,16 @@ const TribeDetail = () => {
                     <p className="font-semibold">{tribe.memberCount.toLocaleString()}</p>
                   </div>
                   <div>
-                    <p className="text-gray-500">XP Reward</p>
-                    <p className="font-semibold">+{tribe.xpReward} XP</p>
+                    <p className="text-gray-500">Tips Hits</p>
+                    <p className="font-semibold">{tribe.tipsHits}</p>
                   </div>
                   <div>
                     <p className="text-gray-500">Category</p>
                     <p className="font-semibold">{tribe.category}</p>
                   </div>
                   <div>
-                    <p className="text-gray-500">Created</p>
-                    <p className="font-semibold">{tribe.createdDate}</p>
+                    <p className="text-gray-500">Weekly Engagement</p>
+                    <p className="font-semibold">{tribe.weeklyEngagement}%</p>
                   </div>
                 </div>
               </div>

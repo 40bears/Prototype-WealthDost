@@ -27,7 +27,8 @@ const InvestmentRooms = () => {
       premiumPrice: "299",
       isSponsored: false,
       sponsorName: null,
-      xpReward: 50,
+      tipsHits: 1250,
+      weeklyEngagement: 89,
       badges: ["Expert Verified", "High Activity"]
     },
     {
@@ -42,7 +43,8 @@ const InvestmentRooms = () => {
       premiumPrice: null,
       isSponsored: true,
       sponsorName: "TechVest Pro",
-      xpReward: 30,
+      tipsHits: 890,
+      weeklyEngagement: 65,
       badges: ["Trending", "Active Community"]
     },
     {
@@ -57,7 +59,8 @@ const InvestmentRooms = () => {
       premiumPrice: "199",
       isSponsored: false,
       sponsorName: null,
-      xpReward: 40,
+      tipsHits: 650,
+      weeklyEngagement: 72,
       badges: ["Expert Led"]
     }
   ];
@@ -177,8 +180,12 @@ const InvestmentRooms = () => {
                       {room.memberCount.toLocaleString()}
                     </span>
                     <span className="flex items-center">
-                      <span className="material-icons text-sm mr-1">stars</span>
-                      +{room.xpReward} XP
+                      <span className="material-icons text-sm mr-1">trending_up</span>
+                      {room.tipsHits} hits
+                    </span>
+                    <span className="flex items-center">
+                      <span className="material-icons text-sm mr-1">bar_chart</span>
+                      {room.weeklyEngagement}% weekly
                     </span>
                   </div>
                 </div>
