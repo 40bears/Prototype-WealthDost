@@ -4,10 +4,21 @@ import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
 
 const TribeDetail = () => {
   const { id } = useParams();
   const [isJoined, setIsJoined] = useState(false);
+  
+  const handlePinPost = (postId: number) => {
+    console.log(`Pinning post ${postId}`);
+    // Handle pin functionality here
+  };
+  
+  const handleReportPost = (postId: number) => {
+    console.log(`Reporting post ${postId}`);
+    // Handle report functionality here
+  };
   
   // Mock data - would be fetched from API based on tribe ID
   const tribe = {
@@ -207,8 +218,43 @@ const TribeDetail = () => {
           <TabsContent value="posts" className="space-y-4 mt-4">
             {posts.map((post) => (
               <div key={post.id} className="bg-white/70 backdrop-blur-md border-2 border-gray-200 hover:border-gray-300 shadow-lg hover:shadow-xl transition-all duration-300 rounded-2xl relative">
+                {/* Context Menu - Top Right */}
+                <div className="absolute top-3 right-3 z-10">
+                  <DropdownMenu>
+                    <DropdownMenuTrigger asChild>
+                      <Button 
+                        variant="ghost" 
+                        size="sm" 
+                        className="p-1 h-auto w-auto hover:bg-gray-100 rounded-full"
+                        data-testid={`button-context-menu-${post.id}`}
+                      >
+                        <span className="material-icons text-sm text-gray-500">more_vert</span>
+                      </Button>
+                    </DropdownMenuTrigger>
+                    <DropdownMenuContent align="end" className="w-48">
+                      <DropdownMenuItem 
+                        onClick={() => handlePinPost(post.id)}
+                        className="flex items-center space-x-2"
+                        data-testid={`menu-pin-${post.id}`}
+                      >
+                        <span className="material-icons text-sm">push_pin</span>
+                        <span>{post.isPinned ? 'Unpin Post' : 'Pin Post'}</span>
+                      </DropdownMenuItem>
+                      <DropdownMenuItem 
+                        onClick={() => handleReportPost(post.id)}
+                        className="flex items-center space-x-2 text-red-600"
+                        data-testid={`menu-report-${post.id}`}
+                      >
+                        <span className="material-icons text-sm">flag</span>
+                        <span>Report Post</span>
+                      </DropdownMenuItem>
+                    </DropdownMenuContent>
+                  </DropdownMenu>
+                </div>
+                
+                {/* Pinned Badge */}
                 {post.isPinned && (
-                  <div className="absolute top-3 right-3">
+                  <div className="absolute top-3 left-3">
                     <Badge className="text-xs bg-yellow-100/70 text-yellow-700 border-2 border-yellow-200">
                       <span className="material-icons text-xs mr-1">push_pin</span>
                       Pinned
