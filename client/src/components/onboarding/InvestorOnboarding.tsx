@@ -462,7 +462,7 @@ export const InvestorOnboarding = ({ onBack }: InvestorOnboardingProps) => {
           <Button variant="ghost" size="icon" onClick={goToPreviousStep} className="text-gray-500">
             <span className="material-icons">arrow_back</span>
           </Button>
-          <h2 className="text-lg sm:text-xl font-semibold ml-2">Your Wealth Enthusiast Profile</h2>
+          <h2 className="text-lg sm:text-xl font-semibold ml-2">Your Wealth Seeker Profile</h2>
         </div>
 
         {/* Progress Bar */}
