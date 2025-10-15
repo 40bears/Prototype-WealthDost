@@ -1,5 +1,5 @@
 services:
-  wealth-dost:
+  wealth-dost-proto:
     image: 'app-wealthdost-proto:latest'
     container_name: wealthdost
     ports:
