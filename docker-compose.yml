@@ -2,7 +2,7 @@ services:
 
   wealth-dost-proto:
     image: 'app-wealthdost-proto:latest'
-    container_name: wealthdost
+    container_name: wealthdost-proto
     ports:
       - "5005:5000"
     env_file:
